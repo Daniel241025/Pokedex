@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap");
 
+:root {
+  --terrain-1: #6ab7f5;
+  --terrain-2: #ffffff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,20 +14,30 @@
 
 body {
   text-align: center;
-  background: linear-gradient(to bottom, #6ab7f5, #fff);
+  background: linear-gradient(to bottom, var(--terrain-1), var(--terrain-2));
   min-height: 100vh;
+  transition: background 0.6s ease;
+  padding-bottom: 40px;
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+}
+
+.pokedex-wrapper {
   display: inline-block;
   margin-top: 2%;
-  padding: 15px;
   position: relative;
 }
 
 .pokedex {
   width: 100%;
   max-width: 425px;
+  display: block;
 }
 
 .pokemon__image {
@@ -54,6 +69,10 @@ main {
   left: 13.5%;
 }
 
+.search-box {
+  position: relative;
+}
+
 .input__search {
   width: 100%;
   padding: 4%;
@@ -66,6 +85,49 @@ main {
   box-shadow:
     -3px 4px 0 #888,
     -5px 7px 0 #333;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 6px;
+  list-style: none;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 20;
+  max-height: 180px;
+  overflow-y: auto;
+  text-align: left;
+  box-shadow: -3px 4px 0 #888;
+}
+
+.suggestions.hidden {
+  display: none;
+}
+
+.suggestions li {
+  padding: 6px 10px;
+  font-size: clamp(8px, 4vw, 0.85rem);
+  font-weight: 600;
+  color: #3a444d;
+  text-transform: capitalize;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.suggestions li span.suggestion__number {
+  color: #999;
+}
+
+.suggestions li:hover,
+.suggestions li.active {
+  background: #eaf4ff;
 }
 
 .buttons {
@@ -90,9 +152,300 @@ main {
   box-shadow:
     -2px 3px 0 #222,
     -4px 6px 0 #000;
+  cursor: pointer;
 }
 
 .button:active {
   box-shadow: inset -4px 4px 0 #222;
   font-size: 0.9rem;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Card base used by details / team builder / saved teams */
+.details,
+.team-builder,
+.saved-teams {
+  width: 100%;
+  max-width: 425px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow:
+    -3px 4px 0 #888,
+    -5px 7px 0 #333;
+  text-align: left;
+}
+
+.details.hidden {
+  display: none;
+}
+
+.details__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.types {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-add-team {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  box-shadow:
+    -2px 2px 0 #222,
+    -3px 4px 0 #000;
+}
+
+.description {
+  color: #3a444d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.measurements {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.measurement {
+  flex: 1;
+  min-width: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.measurement__label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.measurement__value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #3a444d;
+  text-transform: capitalize;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 34px;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-name {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.stat-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  overflow: hidden;
+}
+
+.stat-bar__fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(to right, #6ab7f5, #3a7fd9);
+  transition: width 0.5s ease;
+}
+
+.stat-value {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #3a444d;
+  text-align: right;
+}
+
+.section-title {
+  font-size: 1rem;
+  color: #3a444d;
+  margin-bottom: 12px;
+}
+
+.team-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.team-slot {
+  aspect-ratio: 1 / 1;
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.team-slot.filled {
+  border-style: solid;
+  border-color: #333;
+  background: #f4f8ff;
+}
+
+.team-slot img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+.team-slot .remove-slot {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  background: #ff5b5b;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+}
+
+.team-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.input__team-name {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px 10px;
+  outline: none;
+  border: 2px solid #333;
+  border-radius: 5px;
+  font-weight: 600;
+  color: #3a444d;
+  font-size: 0.85rem;
+}
+
+.btn-save-team,
+.btn-clear-team {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  box-shadow:
+    -2px 2px 0 #222,
+    -3px 4px 0 #000;
+}
+
+.btn-clear-team {
+  background-color: #888;
+}
+
+.saved-teams__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-message {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.saved-team {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.saved-team__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.saved-team__name {
+  font-weight: 700;
+  color: #3a444d;
+  text-transform: capitalize;
+}
+
+.saved-team__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.saved-team__actions button {
+  width: auto;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+.btn-delete-team {
+  background-color: #c0392b;
+}
+
+.saved-team__members {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.saved-team__members img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: #f4f8ff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }

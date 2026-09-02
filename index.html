@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,28 +15,85 @@
   </head>
   <body>
     <main>
-      <img src="#" alt="pokemon" class="pokemon__image" />
+      <div class="pokedex-wrapper">
+        <img src="#" alt="pokemon" class="pokemon__image" />
 
-      <h1 class="pokemon__data">
-        <span class="pokemon__number"></span> -
-        <span class="pokemon__name"></span>
-      </h1>
+        <h1 class="pokemon__data">
+          <span class="pokemon__number"></span> -
+          <span class="pokemon__name"></span>
+        </h1>
 
-      <form class="form">
-        <input
-          type="search"
-          class="input__search"
-          placeholder="Name or Number"
-          required
-        />
-      </form>
+        <form class="form" autocomplete="off">
+          <div class="search-box">
+            <input
+              type="search"
+              class="input__search"
+              placeholder="Nome ou número"
+              required
+            />
+            <ul class="suggestions hidden"></ul>
+          </div>
+        </form>
 
-      <div class="buttons">
-        <button class="button btn-prev">Prev &lt;</button>
-        <button class="button btn-next">Next &gt;</button>
+        <div class="buttons">
+          <button type="button" class="button btn-prev">Prev &lt;</button>
+          <button type="button" class="button btn-next">Next &gt;</button>
+        </div>
+
+        <img src="./images/pokedex.png" alt="pokedex" class="pokedex" />
       </div>
 
-      <img src="./images/pokedex.png" alt="pokedex" class="pokedex" />
+      <section class="details hidden">
+        <div class="details__header">
+          <div class="types"></div>
+          <button type="button" class="button btn-add-team">
+            + Adicionar à equipe
+          </button>
+        </div>
+
+        <p class="description"></p>
+
+        <div class="measurements">
+          <div class="measurement">
+            <span class="measurement__label">Altura</span>
+            <span class="measurement__value height"></span>
+          </div>
+          <div class="measurement">
+            <span class="measurement__label">Peso</span>
+            <span class="measurement__value weight"></span>
+          </div>
+          <div class="measurement">
+            <span class="measurement__label">Habilidades</span>
+            <span class="measurement__value abilities"></span>
+          </div>
+        </div>
+
+        <div class="stats"></div>
+      </section>
+
+      <section class="team-builder">
+        <h2 class="section-title">Minha equipe</h2>
+        <div class="team-slots"></div>
+        <div class="team-actions">
+          <input
+            type="text"
+            class="input__team-name"
+            placeholder="Nome da equipe"
+            maxlength="30"
+          />
+          <button type="button" class="button btn-save-team">
+            Salvar equipe
+          </button>
+          <button type="button" class="button btn-clear-team">Limpar</button>
+        </div>
+      </section>
+
+      <section class="saved-teams">
+        <h2 class="section-title">Equipes salvas</h2>
+        <div class="saved-teams__list">
+          <p class="empty-message">Nenhuma equipe salva ainda.</p>
+        </div>
+      </section>
     </main>
   </body>
 </html>
