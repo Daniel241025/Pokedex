@@ -2,6 +2,9 @@
 
 Uma aplicação web interativa que consome a [PokéAPI](https://pokeapi.co/) para exibir informações detalhadas sobre os Pokémon, como tipos, estatísticas e habilidades.
 
+
+**[Ver Projeto Online](https://daniel241025.github.io/Pokedex/)**
+
 ## 🚀 Funcionalidades
 
 - 🔍 **Busca de Pokémon:** Pesquise por nome ou número de ID.
